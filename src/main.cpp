@@ -1,19 +1,45 @@
 #include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
 #include <math.h>
+#include <iostream>
+#include "planet.hpp"
 
-int main()
-{
+#define PLANET_COUNT 8
+
+int main(){
     sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-    sf::RenderWindow window(sf::VideoMode(desktop.width, desktop.height), "Space Gravity");
+    sf::RenderWindow window(sf::VideoMode(desktop.width, desktop.height), "Solar System");
     window.setFramerateLimit(60);
-    sf::CircleShape main_planet(50.f);
-    main_planet.setFillColor(sf::Color::Green);
-    main_planet.setPosition(desktop.width/2 - 100, desktop.height/2 - 200);
-    sf::CircleShape moon(10.f);
-    moon.setFillColor(sf::Color::White);
-    moon.setPosition(main_planet.getPosition().x + 500, main_planet.getPosition().y);
 
+    sf::CircleShape sun;
+    sun.setRadius(30);
+    sun.setFillColor(sf::Color::Yellow);
+    sun.setPosition(sf::Vector2f(desktop.width / 2 - sun.getRadius(), desktop.height / 2 - sun.getRadius()));
+
+    Planet planets[PLANET_COUNT] = {
+        Planet(10, 100, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 100 - 10)),
+        Planet(10, 150, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 150 - 10)),
+        Planet(10, 200, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 200 - 10)),
+        Planet(10, 250, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 250 - 10)),
+        Planet(10, 300, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 300 - 10)),
+        Planet(199, 350, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 350 - 10)),
+        Planet(10, 400, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 400 - 10)),
+        Planet(10, 500, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 500 - 10))
+    };
+
+    for (int i = 0; i < PLANET_COUNT; i++){
+        planets[i].setShapeRadius(10);
+    }
+
+    planets[0].setFillColor(sf::Color::Green);
+    planets[1].setFillColor(sf::Color::Blue);
+    planets[2].setFillColor(sf::Color::Red);
+    planets[3].setFillColor(sf::Color::Yellow);
+    planets[4].setFillColor(sf::Color::Magenta);
+    planets[5].setFillColor(sf::Color::Cyan);
+    planets[6].setFillColor(sf::Color::White);
+    planets[7].setFillColor(sf::Color::Red);
+
+    float time = 0;
     while (window.isOpen())
     {
         sf::Event event;
@@ -23,19 +49,13 @@ int main()
                 window.close();
         }
 
-        // Gravity
-        sf::Vector2f gravity = main_planet.getPosition() - moon.getPosition();
-        float distance = sqrt(pow(gravity.x, 2) + pow(gravity.y, 2)) * 50000000000;
-        float force = (6.67408 * pow(10, -11) * 5.972 * pow(10, 24) * 7.348 * pow(10, 22)) / pow(distance, 2);
-        gravity.x = gravity.x / distance;
-        gravity.y = gravity.y / distance;
-        gravity.x = gravity.x * force;
-        gravity.y = gravity.y * force;
-        moon.move(gravity);
-
+        time += 0.00001;
         window.clear();
-        window.draw(main_planet);
-        window.draw(moon);
+        window.draw(sun);
+        for (int i = 0; i < PLANET_COUNT; i++){
+            planets[i].update(time, desktop.width, desktop.height);
+            planets[i].draw(window);
+        }
         window.display();
         }
 

@@ -4,6 +4,7 @@
 #include "planet.hpp"
 
 #define PLANET_COUNT 8
+#define SCALE 0.001
 
 int main(){
     sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
@@ -16,14 +17,14 @@ int main(){
     sun.setPosition(sf::Vector2f(desktop.width / 2 - sun.getRadius(), desktop.height / 2 - sun.getRadius()));
 
     Planet planets[PLANET_COUNT] = {
-        Planet(10, 100, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 100 - 10)),
-        Planet(10, 150, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 150 - 10)),
-        Planet(10, 200, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 200 - 10)),
-        Planet(10, 250, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 250 - 10)),
-        Planet(10, 300, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 300 - 10)),
-        Planet(199, 350, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 350 - 10)),
-        Planet(10, 400, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 400 - 10)),
-        Planet(10, 500, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 500 - 10))
+        Planet(2439 * SCALE, 100, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 100 - 10)), //Mercury
+        Planet(6051 * SCALE, 150, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 150 - 10)), //Venus
+        Planet(6378 * SCALE, 200, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 200 - 10)), //Earth
+        Planet(3393 * SCALE, 250, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 250 - 10)), //Mars
+        Planet(71492 * SCALE, 300, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 300 - 10)), //Jupiter
+        Planet(60268 * SCALE, 350, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 350 - 10)), //Saturn
+        Planet(25559 * SCALE, 400, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 400 - 10)), //Uranus
+        Planet(24764 * SCALE, 500, sf::Vector2f(desktop.width / 2 - 10, desktop.height / 2 + 500 - 10)) //Neptune
     };
 
     for (int i = 0; i < PLANET_COUNT; i++){
@@ -32,11 +33,11 @@ int main(){
 
     planets[0].setFillColor(sf::Color::Green);
     planets[1].setFillColor(sf::Color::Blue);
-    planets[2].setFillColor(sf::Color::Red);
-    planets[3].setFillColor(sf::Color::Yellow);
-    planets[4].setFillColor(sf::Color::Magenta);
-    planets[5].setFillColor(sf::Color::Cyan);
-    planets[6].setFillColor(sf::Color::White);
+    planets[2].setFillColor(sf::Color::Green);
+    planets[3].setFillColor(sf::Color::Blue);
+    planets[4].setFillColor(sf::Color::Green);
+    planets[5].setFillColor(sf::Color::Blue);
+    planets[6].setFillColor(sf::Color::Green);
     planets[7].setFillColor(sf::Color::Red);
 
     float time = 0;
@@ -57,7 +58,7 @@ int main(){
             planets[i].draw(window);
         }
         window.display();
-        }
+    }
 
     return 0;
 }

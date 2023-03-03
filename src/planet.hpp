@@ -3,31 +3,34 @@
 
 #define G 6.67408 * pow(10, -11)
 #define SUN_MASS 1.989 * pow(10, 30)
+#define PLANET_COUNT 8
+#define SCALE 100000
 
 class Planet
 {
 private:
-    /* char name[20]; */
-    int radius;
-    int distance;
+    long long int distance;
+    int distance_shape;
+    int radius_shape;
     sf::CircleShape shape;
     sf::Vector2f position;
-    double angular_velocity = sqrt((G * SUN_MASS) / (pow(distance, 3)));
+    double angular_velocity;
 
 public:
-    void update(float time, int width, int height);
-    /* void setName(char name[20]); */
-    void setRadius(int radius);
-    void setPosition(sf::Vector2f position);
-    void setDistance(int distance);
+    void update(double time, int width, int height);
+    void draw(sf::RenderWindow &window);
+    void setDistance(long long int distance);
+    void setDistanceShape(int distance_shape);
+    void setRadiusShape(int radius_shape);
     void setFillColor(sf::Color color);
-    void setShapeRadius(int shapeRadius);
-    /* char *getName(); */
-    int getRadius();
-    int getDistance();
+    void setPosition(sf::Vector2f position);
+    void setAngularVelocity(double angular_velocity);
+    long long int getDistance();
+    int getDistanceShape();
+    int getRadiusShape();
     void getFillColor();
     sf::Vector2f getPosition();
-    void draw(sf::RenderWindow &window);
+    double getAngularVelocity();
 
-    Planet(/* char *name,  */int radius, int distance, sf::Vector2f position);
+    Planet(long long int distance, int distance_shape, int radius_shape, sf::Vector2f position);
 };

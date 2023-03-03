@@ -1,54 +1,59 @@
 #include "planet.hpp"
 
-Planet::Planet(/* char name[],  */int radius, int distance, sf::Vector2f position){
-    /* this->name = name; */
-    this->radius = radius;
+Planet::Planet(long long int distance, int distance_shape, int radius_shape, sf::Vector2f position){
     this->distance = distance;
+    this->distance_shape = distance_shape;
+    this->radius_shape = radius_shape;
     this->position = position;
-    shape.setRadius(radius);
+    shape.setRadius(radius_shape);
     shape.setPosition(position);
 }
 
-void Planet::update(float time, int width, int height){
-    double angular = angular_velocity * time;
-    sf::Vector2f newPosition = sf::Vector2f(width / 2 + distance * cos(angular),height / 2 + distance * sin(angular));
+void Planet::update(double time, int width, int height){
+    float angular = angular_velocity * time;
+    sf::Vector2f newPosition = sf::Vector2f(width / 2 - 10 + distance_shape * cos(angular),height / 2 - 10 + distance_shape * sin(angular));
     shape.setPosition(newPosition);
+    setPosition(newPosition);
 }
 
-/* void Planet::setName(char name[20]){
-    this->name = name;
-} */
-
-void Planet::setRadius(int radius){
-    this->radius = radius;
+void Planet::draw(sf::RenderWindow &window){
+    window.draw(shape);
 }
 
-void Planet::setPosition(sf::Vector2f position){
-    this->position = position;
-}
-
-void Planet::setDistance(int distance){
+void Planet::setDistance(long long int distance){
     this->distance = distance;
+}
+
+void Planet::setDistanceShape(int distance_shape){
+    this->distance_shape = distance_shape;
+}
+
+void Planet::setRadiusShape(int radius_shape){
+    this->radius_shape = radius_shape;
 }
 
 void Planet::setFillColor(sf::Color color){
     shape.setFillColor(color);
 }
 
-void Planet::setShapeRadius(int shapeRadius){
-    shape.setRadius(shapeRadius);
+void Planet::setPosition(sf::Vector2f position){
+    this->position = position;
 }
 
-/* char *Planet::getName(){
-    return name;
-} */
-
-int Planet::getRadius(){
-    return radius;
+void Planet::setAngularVelocity(double angular_velocity){
+    this->angular_velocity = angular_velocity;
 }
 
-int Planet::getDistance(){
+long long int Planet::getDistance(){
     return distance;
+}
+
+int Planet::getDistanceShape(){
+    return distance_shape;
+}
+
+int Planet::getRadiusShape(){
+    return radius_shape;
 }
 
 void Planet::getFillColor(){
@@ -59,6 +64,6 @@ sf::Vector2f Planet::getPosition(){
     return position;
 }
 
-void Planet::draw(sf::RenderWindow &window){
-    window.draw(shape);
+double Planet::getAngularVelocity(){
+    return angular_velocity;
 }

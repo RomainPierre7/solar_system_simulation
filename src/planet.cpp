@@ -1,17 +1,18 @@
 #include "planet.hpp"
 
-Planet::Planet(long long int distance, int distance_shape, int radius_shape, sf::Vector2f position){
+Planet::Planet(long int distance, int distance_shape, int radius_shape, sf::Vector2f position, int sens){
     this->distance = distance;
     this->distance_shape = distance_shape;
     this->radius_shape = radius_shape;
     this->position = position;
     shape.setRadius(radius_shape);
     shape.setPosition(position);
+    this->sens = sens;
 }
 
 void Planet::update(double time, int width, int height){
     float angular = angular_velocity * time;
-    sf::Vector2f newPosition = sf::Vector2f(width / 2 - 10 + distance_shape * cos(angular),height / 2 - 10 - 50 + distance_shape * sin(angular));
+    sf::Vector2f newPosition = sf::Vector2f(width / 2 - 10 + distance_shape * cos(sens * angular),height / 2 - 10 - 50 + distance_shape * sin(sens * angular));
     shape.setPosition(newPosition);
     setPosition(newPosition);
 }

@@ -16,17 +16,17 @@ int main(){
     sf::CircleShape sun;
     sun.setRadius(30);
     sun.setFillColor(sf::Color::Yellow);
-    sun.setPosition(sf::Vector2f(desktop.width / 2 - sun.getRadius(), desktop.height / 2 - sun.getRadius()));
+    sun.setPosition(sf::Vector2f(desktop.width / 2 - sun.getRadius(), desktop.height / 2 - sun.getRadius() - 50));
 
     Planet planets[PLANET_COUNT] = {
-        Planet(57.91 * SCALE, 100, 10, sf::Vector2f(desktop.width / 2 + 100 - 10, desktop.height / 2 - 10)), //Mercury
-        Planet(108.2 * SCALE, 150, 10, sf::Vector2f(desktop.width / 2 + 150 - 10, desktop.height / 2 - 10)), //Venus
-        Planet(149.6 * SCALE, 200, 10, sf::Vector2f(desktop.width / 2 + 200 - 10, desktop.height / 2 - 10)), //Earth
-        Planet(227.9 * SCALE, 250, 10, sf::Vector2f(desktop.width / 2 + 250 - 10, desktop.height / 2 - 10)), //Mars
-        Planet(778.5 * SCALE, 300, 10, sf::Vector2f(desktop.width / 2 + 300 - 10, desktop.height / 2 - 10)), //Jupiter
-        Planet(1400 * SCALE, 350, 10, sf::Vector2f(desktop.width / 2 + 350 - 10, desktop.height / 2 - 10)), //Saturn
-        Planet(2900 * SCALE, 400, 10, sf::Vector2f(desktop.width / 2 + 400 - 10, desktop.height / 2 - 10)), //Uranus
-        Planet(4500 * SCALE, 450, 10, sf::Vector2f(desktop.width / 2 + 450 - 10, desktop.height / 2 - 10)) //Neptune
+        Planet(57.91 * SCALE, (desktop.height / 2 - 100) / 8 * 1, 10, sf::Vector2f(desktop.width / 2 + (desktop.height / 2 - 100) / 8 * 1 - 10, desktop.height / 2 - 10 - 50)), //Mercury
+        Planet(108.2 * SCALE, (desktop.height / 2 - 100) / 8 * 2, 10, sf::Vector2f(desktop.width / 2 + (desktop.height / 2 - 100) / 8 * 2 - 10, desktop.height / 2 - 10 - 50)), //Venus
+        Planet(149.6 * SCALE, (desktop.height / 2 - 100) / 8 * 3, 10, sf::Vector2f(desktop.width / 2 + (desktop.height / 2 - 100) / 8 * 3 - 10, desktop.height / 2 - 10 - 50)), //Earth
+        Planet(227.9 * SCALE, (desktop.height / 2 - 100) / 8 * 4, 10, sf::Vector2f(desktop.width / 2 + (desktop.height / 2 - 100) / 8 * 4 - 10, desktop.height / 2 - 10 - 50)), //Mars
+        Planet(778.5 * SCALE, (desktop.height / 2 - 100) / 8 * 5, 10, sf::Vector2f(desktop.width / 2 + (desktop.height / 2 - 100) / 8 * 5 - 10, desktop.height / 2 - 10 - 50)), //Jupiter
+        Planet(1400 * SCALE, (desktop.height / 2 - 100) / 8 * 6, 10, sf::Vector2f(desktop.width / 2 + (desktop.height / 2 - 100) / 8 * 6 - 10, desktop.height / 2 - 10 - 50)), //Saturn
+        Planet(2900 * SCALE, (desktop.height / 2 - 100) / 8 * 7, 10, sf::Vector2f(desktop.width / 2 + (desktop.height / 2 - 100) / 8 * 7 - 10, desktop.height / 2 - 10 - 50)), //Uranus
+        Planet(4500 * SCALE, (desktop.height / 2 - 100) / 8 * 8, 10, sf::Vector2f(desktop.width / 2 + (desktop.height / 2 - 100) / 8 * 8 - 10, desktop.height / 2 - 10 - 50)) //Neptune
     };
 
     planets[0].setFillColor(sf::Color(128, 128, 128, 255));
@@ -54,13 +54,15 @@ int main(){
     };
 
     for (int i = 0; i < PLANET_COUNT; i++){
+        circles[i].setPointCount(100);
         circles[i].setFillColor(sf::Color::Transparent);
         circles[i].setOutlineColor(sf::Color::White);
         circles[i].setOutlineThickness(1);
-        circles[i].setPosition(desktop.width / 2 - planets[i].getDistanceShape(), desktop.height / 2 - planets[i].getDistanceShape());
+        circles[i].setPosition(desktop.width / 2 - planets[i].getDistanceShape(), desktop.height / 2 - planets[i].getDistanceShape() - 50);
     }
 
     std::vector<Planet_name> planets_name = {
+        {"Sun", sf::Color::Yellow},
         {"Mercury", sf::Color(128, 128, 128, 255)},
         {"Venus", sf::Color(255, 165, 0, 255)},
         {"Earth", sf::Color(0, 0, 255, 255)},
@@ -73,13 +75,13 @@ int main(){
 
     sf::Font font;
     if (!font.loadFromFile("src/arial.ttf")) {
-        std::cerr << "Impossible de charger la police de caractères arial.ttf" << std::endl;
+        std::cerr << "Impossible to charge the arial.ttf font" << std::endl;
         return EXIT_FAILURE;
     }
 
     sf::Text text;
     text.setFont(font);
-    text.setCharacterSize(20);
+    text.setCharacterSize(50);
     text.setFillColor(sf::Color::White);
 
     text.setPosition(50.f, 10.f);
@@ -106,16 +108,16 @@ int main(){
 
         for (int i = 0; i < planets_name.size(); i++) {
             text.setString(planets_name[i].name);
-            text.move(0.f, i * 25.f);
+            text.move(0.f, i * 55.f);
 
-            sf::RectangleShape rect(sf::Vector2f(20.f, 20.f));
+            sf::RectangleShape rect(sf::Vector2f(50.f, 50.f));
             rect.setFillColor(planets_name[i].color);
-            rect.setPosition(text.getPosition().x - 30, text.getPosition().y);
+            rect.setPosition(text.getPosition().x - 60, text.getPosition().y);
 
             window.draw(text);
             window.draw(rect);
 
-            text.move(0.f, -i * 25.f);
+            text.move(0.f, -i * 55.f);
         }
 
         window.display();

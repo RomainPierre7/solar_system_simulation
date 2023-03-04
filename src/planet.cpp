@@ -11,7 +11,7 @@ Planet::Planet(long long int distance, int distance_shape, int radius_shape, sf:
 
 void Planet::update(double time, int width, int height){
     float angular = angular_velocity * time;
-    sf::Vector2f newPosition = sf::Vector2f(width / 2 - 10 + distance_shape * cos(angular),height / 2 - 10 + distance_shape * sin(angular));
+    sf::Vector2f newPosition = sf::Vector2f(width / 2 - 10 + distance_shape * cos(angular),height / 2 - 10 - 50 + distance_shape * sin(angular));
     shape.setPosition(newPosition);
     setPosition(newPosition);
 }

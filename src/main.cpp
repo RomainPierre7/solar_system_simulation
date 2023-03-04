@@ -51,7 +51,7 @@ int main(){
     planets[4].setFillColor(sf::Color(255, 255, 150, 255));
     planets[5].setFillColor(sf::Color(218, 165, 32, 255));
     planets[6].setFillColor(sf::Color(0, 191, 255, 255));
-    planets[7].setFillColor(sf::Color(0, 0, 139, 255));
+    planets[7].setFillColor(sf::Color(104, 0, 250, 255));
 
     for (int i = 0; i < PLANET_COUNT; i++){
         planets[i].setAngularVelocity(sqrt((G * SUN_MASS) / (pow(planets[i].getDistance(), 3))));
@@ -85,7 +85,7 @@ int main(){
         {"Jupiter", sf::Color(255, 255, 150, 255)},
         {"Saturn", sf::Color(218, 165, 32, 255)},
         {"Uranus", sf::Color(0, 191, 255, 255)},
-        {"Neptune", sf::Color(0, 0, 139, 255)}
+        {"Neptune", sf::Color(104, 0, 250, 255)}
     };
 
     sf::Font font;

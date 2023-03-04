@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <math.h>
 #include <iostream>
+#include <ctime>
+#include <vector>
 #include "planet.hpp"
 
 struct Planet_name{
@@ -9,9 +11,22 @@ struct Planet_name{
 };
 
 int main(){
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
     sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
     sf::RenderWindow window(sf::VideoMode(desktop.width, desktop.height), "Solar System");
     window.setFramerateLimit(60);
+
+    const int n = 500;
+    const float radius = 1.f;
+    const sf::Color color = sf::Color::White;
+    std::vector<sf::Vector2f> points(n);
+    for (int i = 0; i < n; i++)
+    {
+        const float x = static_cast<float>(std::rand() % window.getSize().x);
+        const float y = static_cast<float>(std::rand() % window.getSize().y);
+
+        points[i] = sf::Vector2f(x, y);
+    }
 
     sf::CircleShape sun;
     sun.setRadius(30);
@@ -118,6 +133,14 @@ int main(){
             window.draw(rect);
 
             text.move(0.f, -i * 55.f);
+        }
+
+        for (const auto& point : points)
+        {
+            sf::CircleShape circle(radius);
+            circle.setFillColor(color);
+            circle.setPosition(point);
+            window.draw(circle);
         }
 
         window.display();

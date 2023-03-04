@@ -3,6 +3,11 @@
 #include <iostream>
 #include "planet.hpp"
 
+struct Planet_name{
+    std::string name;
+    sf::Color color;
+};
+
 int main(){
     sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
     sf::RenderWindow window(sf::VideoMode(desktop.width, desktop.height), "Solar System");
@@ -55,6 +60,30 @@ int main(){
         circles[i].setPosition(desktop.width / 2 - planets[i].getDistanceShape(), desktop.height / 2 - planets[i].getDistanceShape());
     }
 
+    std::vector<Planet_name> planets_name = {
+        {"Mercury", sf::Color(128, 128, 128, 255)},
+        {"Venus", sf::Color(255, 165, 0, 255)},
+        {"Earth", sf::Color(0, 0, 255, 255)},
+        {"Mars", sf::Color(255, 0, 0, 255)},
+        {"Jupiter", sf::Color(255, 255, 150, 255)},
+        {"Saturn", sf::Color(218, 165, 32, 255)},
+        {"Uranus", sf::Color(0, 191, 255, 255)},
+        {"Neptune", sf::Color(0, 0, 139, 255)}
+    };
+
+    sf::Font font;
+    if (!font.loadFromFile("src/arial.ttf")) {
+        std::cerr << "Impossible de charger la police de caractères arial.ttf" << std::endl;
+        return EXIT_FAILURE;
+    }
+
+    sf::Text text;
+    text.setFont(font);
+    text.setCharacterSize(20);
+    text.setFillColor(sf::Color::White);
+
+    text.setPosition(50.f, 10.f);
+
     double time = 0;
 
     while (window.isOpen())
@@ -74,6 +103,21 @@ int main(){
             planets[i].draw(window);
             window.draw(circles[i]);
         }
+
+        for (int i = 0; i < planets_name.size(); i++) {
+            text.setString(planets_name[i].name);
+            text.move(0.f, i * 25.f);
+
+            sf::RectangleShape rect(sf::Vector2f(20.f, 20.f));
+            rect.setFillColor(planets_name[i].color);
+            rect.setPosition(text.getPosition().x - 30, text.getPosition().y);
+
+            window.draw(text);
+            window.draw(rect);
+
+            text.move(0.f, -i * 25.f);
+        }
+
         window.display();
     }
     return 0;

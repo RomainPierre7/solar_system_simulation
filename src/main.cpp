@@ -114,6 +114,15 @@ int main(){
         window.clear();
 
         time += 0.1;
+
+        for (const auto& point : points)
+        {
+            sf::CircleShape circle(radius);
+            circle.setFillColor(color);
+            circle.setPosition(point);
+            window.draw(circle);
+        }
+        
         window.draw(sun);
         for (int i = 0; i < PLANET_COUNT; i++){
             planets[i].update(time, desktop.width, desktop.height);
@@ -133,14 +142,6 @@ int main(){
             window.draw(rect);
 
             text.move(0.f, -i * 55.f);
-        }
-
-        for (const auto& point : points)
-        {
-            sf::CircleShape circle(radius);
-            circle.setFillColor(color);
-            circle.setPosition(point);
-            window.draw(circle);
         }
 
         window.display();
